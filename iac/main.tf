@@ -13,9 +13,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = var.location
+data "template_file" "cloud_init" {
+  template = file("${path.module}/templates/cloud-init.tpl")
+
+  vars = {
+    html_content = file("${path.module}/html/index.html")
+  }
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -104,6 +107,6 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
     version   = "latest"
   }
 
-  custom_data = filebase64("${path.module}/scripts/cloud-init.sh")
+  custom_data = base64encode(data.template_file.cloud_init.rendered)
 }
 
