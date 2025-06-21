@@ -1,0 +1,6 @@
+# Local SSH keys
+temp_key
+temp_key.pub
+
+# Local Terraform variable overrides
+terraform.tfvars
