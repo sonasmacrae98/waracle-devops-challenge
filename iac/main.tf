@@ -76,4 +76,34 @@ resource "azurerm_public_ip" "web_public_ip" {
   sku                 = "Basic"
 }
 
+resource "azurerm_linux_virtual_machine" "web_vm" {
+  name                = "web-vm"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  size                = "Standard_B1s"
+  admin_username      = "azureuser"
+  network_interface_ids = [
+    azurerm_network_interface.nic.id
+  ]
+  disable_password_authentication = true
+
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = file("~/.ssh/id_rsa.pub") # You can update this path as needed
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
+
+  custom_data = filebase64("${path.module}/scripts/cloud-init.sh")
+}
 
