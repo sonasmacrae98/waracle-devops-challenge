@@ -97,7 +97,7 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD12345 sonas@local-dev"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD6nq2kH4fakekeyfortesting1234567890abcdefghijklmnopqrstuvwxyzabcdefghi== sonas@ci-runner"
   }
 
   os_disk {
