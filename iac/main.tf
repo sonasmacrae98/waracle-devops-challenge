@@ -97,7 +97,7 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub") # You can update this path as needed
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD12345 sonas@local-dev"
   }
 
   os_disk {
@@ -114,4 +114,5 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
 
   custom_data = base64encode(data.template_file.cloud_init.rendered)
 }
+
 
