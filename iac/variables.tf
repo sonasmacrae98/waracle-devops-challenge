@@ -10,4 +10,7 @@ variable "location" {
   default     = "UK South"
 }
 
-
+variable "admin_public_key" {
+  description = "SSH public key for VM login"
+  type        = string
+}
